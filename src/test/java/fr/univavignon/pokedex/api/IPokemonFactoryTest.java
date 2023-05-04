@@ -14,7 +14,7 @@ public class IPokemonFactoryTest {
 
     @Before
     public void setUp(){
-
+        this.pokemonFactory = new PokemonFactory();
         this.bulbizarre = new Pokemon(
                 0,
                 "Bulbizarre",

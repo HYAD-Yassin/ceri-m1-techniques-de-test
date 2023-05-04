@@ -20,7 +20,29 @@ public class IPokemonTrainerFactoryTest {
     @Test
     public void canCreateTrainer(){
 
+        // given
+        IPokedexFactory pokedexFactory = Mockito.mock(IPokedexFactory.class);
+        Team mystic = Team.MYSTIC;
+        Pokedex pokedex = Mockito.mock(Pokedex.class);
+        PokemonTrainer pokemonTrainer = new PokemonTrainer("Arcanine",mystic,pokedex);
 
+        // when
+        Mockito
+                .doReturn(pokemonTrainer)
+                .when(this.pokemonTrainerFactory)
+                .createTrainer("Arcanine",mystic,pokedexFactory);
+
+        // then
+        // Class check
+        assertEquals(pokemonTrainer.getClass(),this.pokemonTrainerFactory.createTrainer("Arcanine",mystic,pokedexFactory).getClass());
+        // Name check
+        assertEquals("Arcanine",this.pokemonTrainerFactory.createTrainer("Arcanine",mystic,pokedexFactory).getName());
+        // Team check
+        assertEquals(mystic,this.pokemonTrainerFactory.createTrainer("Arcanine",mystic,pokedexFactory).getTeam());
+        // Pokedex class check
+        assertEquals(pokedex.getClass(),this.pokemonTrainerFactory.createTrainer("Arcanine",mystic,pokedexFactory).getPokedex().getClass());
+        // Pokedex size check
+        assertEquals(pokedex.size(),this.pokemonTrainerFactory.createTrainer("Arcanine",mystic,pokedexFactory).getPokedex().size());
     }
 
 }

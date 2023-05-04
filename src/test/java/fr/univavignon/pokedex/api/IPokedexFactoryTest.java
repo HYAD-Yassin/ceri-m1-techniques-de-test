@@ -1,36 +1,31 @@
 package fr.univavignon.pokedex.api;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
+import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import org.mockito.Mockito;
+import static org.junit.Assert.assertEquals;
 
 
 public class IPokedexFactoryTest {
-    IPokedexFactory pokedexFactory = mock(IPokedexFactory.class);
-    IPokemonMetadataProvider metadataProvider =  mock(IPokemonMetadataProvider.class);
-    IPokemonFactory pokemonFactory = mock(IPokemonFactory.class);
+
+    private IPokedexFactory pokedexFactory;
+
+    @Before
+    public void setUp(){
+        this.pokedexFactory = new PokedexFactory();
+
+    }
 
     @Test
+    public void canCreatePokedex(){
+
+        //given
+        IPokemonMetadataProvider pokemonMetadataProvider= Mockito.mock(IPokemonMetadataProvider.class);
+        IPokemonFactory pokemonFactory = Mockito.mock(IPokemonFactory.class);
 
 
 
-
-
-    public  void creationPokedex() {
-        when(pokedexFactory.createPokedex(any(), any())).thenAnswer(new Answer<IPokedex>() {
-            public IPokedex answer(InvocationOnMock invocation) {
-
-                IPokedex pokedex = mock(IPokedex.class);
-                when(pokedex.size()).thenReturn(0);
-                return pokedex;
-            }
-        });
-        IPokedex pokedex =  pokedexFactory.createPokedex(metadataProvider, pokemonFactory);
-        assertEquals(0, pokedex.size());
+        //then
+        assertEquals(Pokedex.class,pokedexFactory.createPokedex(pokemonMetadataProvider,pokemonFactory).getClass());
     }
 }
-
-
